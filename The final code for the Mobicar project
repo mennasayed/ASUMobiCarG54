@@ -1,0 +1,103 @@
+#include <SoftwareSerial.h>
+
+
+SoftwareSerial HC06(0,1);//TX,RX
+
+
+char value;
+
+
+int motorA1=2;
+int motorA2=3;
+int motorB1=4;
+int motorB2=5;
+
+int enA =9;
+int enB =10; 
+
+
+void setup() {
+
+ // put your setup code here, to run once:
+
+
+Serial.begin(9600);
+
+HC06.begin(9600);
+
+pinMode(motorA1,OUTPUT);
+pinMode(motorA2,OUTPUT);
+pinMode(motorB1,OUTPUT);
+pinMode(motorB2,OUTPUT);
+analogWrite (enA, 250);
+analogWrite (enB,250);
+
+}
+void loop() {
+
+ // put your main code here, to run repeatedly:
+ 
+ 
+if(HC06.available()) // We must check if the bluetooth module is recieving data
+{
+value=HC06.read(); //the value is recieved from Bluetooth module
+//value= Serial.read();
+
+ //the value is recieved from the Serial Window
+//note: if we want to see what the bluetooth module recieves , we print it on the serial window by using this command
+//Serial.printIn(value);
+}
+
+
+if(value=='F')//forward
+ { 
+ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+ digitalWrite (enA, HIGH);
+ digitalWrite (enB,HIGH);
+ }
+ 
+else if(value=='B') //backward
+ {
+   digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+ digitalWrite (enA, HIGH);
+ digitalWrite (enB,HIGH);
+ }
+
+else if (value=='R')//turn right
+ {
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+ digitalWrite (enA, HIGH);
+ digitalWrite (enB,HIGH);
+ }
+
+ 
+else if(value=='L')//turn left
+ {
+ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+ digitalWrite (enA, HIGH);
+ digitalWrite (enB,HIGH);
+ }
+
+else if (value=='S')//stop
+ {
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,LOW);
+ digitalWrite (enA, LOW);
+ digitalWrite (enB,LOW);
+ }
+
+ }
