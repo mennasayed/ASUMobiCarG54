@@ -2,6 +2,8 @@
 
 Easy driving test video: https://www.youtube.com/watch?v=GUta_Ptd-eA&feature=youtu.be
 
+Line tracking video: https://www.youtube.com/watch?v=zmdaU5lmF5Y
+
 Team members:
 
 1-Menna sayed
