@@ -1,0 +1,18 @@
+int x;
+int y;
+void setup() 
+{
+  pinMode(2,OUTPUT);
+  pinMode(3,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(A0,INPUT);
+}
+
+void loop()
+ {
+  x=analogRead(A0);
+  y=map(x,0,1023,0,255);
+  analogWrite(6,y);
+  digitalWrite(2,HIGH);
+  digitalWrite(3,HIGH);
+}
