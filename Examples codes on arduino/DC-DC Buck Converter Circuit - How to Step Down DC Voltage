@@ -1,0 +1,17 @@
+int x; // initialize variables
+int w;
+
+void setup() {
+  pinMode(6,OUTPUT);// pwm pin 6 as output pin
+  pinMode(A1,INPUT);// analog pin as input
+  TCCR0B = TCCR0B & B11111000 | B00000001;// change frequency of pwm to 65 KHZ approx( explained under code section)
+  Serial.begin(9600);// begin serial communication
+ }
+
+void loop() {
+  x= analogRead(A1);
+  w= map(x,0,1023,0,255);
+  analogWrite(6,w); // write mapped value on pin 6
+  Serial.print("w    "); //print mapped value on screen
+  Serial.println(w);
+ }
