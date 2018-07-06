@@ -1,0 +1,252 @@
+#include <SoftwareSerial.h>
+
+
+SoftwareSerial HC06(0,1);//TX,RX
+
+
+//phase 3 variables]
+float T=2.9;
+String hi="";
+char s;
+char path;
+unsigned int integerValue = 0;
+
+char incomingByte;
+char value;
+char vvv;
+char v;
+int motorA1=2;
+int motorA2=3;
+int motorB1=4;
+int motorB2=5;
+int enA =9;
+int enB =10; 
+int data1,data2,data3;
+int sensorA = 6;
+int sensorB = 7;
+int sensorC = 8;
+void setup() {
+
+ // put your setup code here, to run once:
+
+Serial.begin(9600);
+HC06.begin(9600);
+
+pinMode(motorA1,OUTPUT);
+pinMode(motorA2,OUTPUT);
+pinMode(motorB1,OUTPUT);
+pinMode(motorB2,OUTPUT);
+
+analogWrite (enA, 250);
+analogWrite (enB,250);
+
+
+}
+
+void loop() {
+
+ // put your main code here, to run repeatedly:
+ 
+ value= Serial.read();
+
+
+
+ if(value=='F')//forward
+
+ {
+  
+ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+ digitalWrite (enA , 100);
+ digitalWrite (enB , 100);
+ }
+
+ else if(value=='B') //backward
+
+ {
+
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+digitalWrite (enA , HIGH);
+digitalWrite (enB , HIGH);
+ }
+
+ else if (value=='R')//turn right
+
+ {
+
+ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+digitalWrite (enA , 80);
+digitalWrite (enB,80);
+ }
+
+ else if(value=='L')//turn left
+
+ {
+
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+digitalWrite (enA,LOW);
+digitalWrite (enB, HIGH);
+ }
+//===============================================================================================================
+ if (value== 'D')
+ {
+  int x = hat();
+  Serial.println(x);
+  distanceF (x);
+  }
+ if (value== 'A')
+ {
+   int x = hat();
+  Serial.println(x);
+  angle (x);
+  }
+if (value== 'Z')
+{
+  
+  delay(5000);
+  // put your main code here, to run repeatedly:
+  rectangle ();
+  Stop();
+delay(5000);
+circle ();
+  Stop();
+
+delay(5000);
+infinity();
+  }
+ 
+//================================================================================================================
+else if(value=='W'){
+while(1)
+{
+ vvv= Serial.read(); 
+ if (vvv=='U'){break;}
+ 
+ 
+data1 =digitalRead(sensorA);
+data2 =digitalRead(sensorB);
+data3 =digitalRead(sensorC);
+
+
+Serial.print("data1  =  ");
+Serial.println(data1);
+Serial.print("data2  =  ");
+Serial.println(data2);
+Serial.print("data3  =  ");
+Serial.println(data3);
+if ((data1==HIGH)&&(data2==LOW)&&(data3==HIGH))value='F';
+if ((data1==LOW)&&(data2==HIGH)&&(data3==HIGH))value='L';
+if ((data1==HIGH)&&(data2==HIGH)&&(data3==LOW))value='R';
+if ((data1==LOW)&&(data2==LOW)&&(data3==HIGH))value='L';
+if ((data1==HIGH)&&(data2==LOW)&&(data3==LOW))value='R';
+
+
+ if(value=='F')//forward
+{
+  
+ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+analogWrite (enA,100);
+ analogWrite (enB,100);
+ }
+
+ else if(value=='B') //backward
+
+ {
+
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+digitalWrite (enA , HIGH);
+digitalWrite (enB , HIGH);
+ }
+
+ else if (value=='R')//turn right
+
+ {
+
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+analogWrite (enA,0);
+ analogWrite (enB,150);
+
+ }
+
+ else if(value=='L')//turn left
+
+ {
+
+ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+analogWrite (enA,150);
+ analogWrite (enB,0);
+
+ }
+ 
+
+ 
+ }
+
+}
+ else if (value=='S')//stop
+
+ {
+
+ digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,LOW);
+
+ }
+
+ }
+ //=======================================================================================================================================
+ int hat (){
+  hi="";
+  int i=1;
+    while (i==1)
+
+    {
+        if (Serial.available() > 0)
+
+      {
+        s= Serial.read(); 
+         if(s=='E')
+      {
+        i=0;
+      }
+      else
+      {
+        hi+=s;
+      }
+      }
+    }
+    int dist = hi.toInt();
+    return dist;
+  }
+  //===========================================
+  void distanceF (int x){
+  float t = x/20;
+  t=t*1000;
+ forward();
+ delay (t);
+Stop();
+  }
