@@ -1,0 +1,62 @@
+#include <SoftwareSerial.h>
+
+SoftwareSerial HC06(0,1);//TX,RX
+float T=2.9;
+String hi="";
+char s;
+char path;
+unsigned int integerValue = 0;
+
+char value;
+char vvv;
+char v;
+int motorA1=2;
+int motorA2=3;
+int motorB1=4;
+int motorB2=5;
+int enA =9;
+int enB =10; 
+int data1,data2,data3;
+int sensorA = 6;
+int sensorB = 7;
+int sensorC = 8;
+int carspeed;
+
+int d;
+int theta;
+
+int trigPin = 11;    
+int echoPin = 12;    
+long duration, cm;
+void setup() {
+
+ // put your setup code here, to run once:
+
+Serial.begin(9600);
+HC06.begin(9600);
+
+pinMode(motorA1,OUTPUT);
+pinMode(motorA2,OUTPUT);
+pinMode(motorB1,OUTPUT);
+pinMode(motorB2,OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+analogWrite (enA, 250);
+analogWrite (enB,250);
+
+
+}
+void distanceF (int x){
+  float t = x/20;
+  t=t*1000;
+ forward();
+ delay (t);
+Stop();
+  }
+ void angle (int y){
+float t2 = (y/360)* T;
+right();
+  delay (t2);
+forward ();
+delay(8000);Stop();
+ }
