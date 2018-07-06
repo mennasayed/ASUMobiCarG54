@@ -1,0 +1,71 @@
+//========================================
+void angle (int y){
+float t2 = (y/360)* T;
+right();
+  delay (t2);
+forward ();
+delay (5000);
+Stop();
+ }
+ //=========================================================================================saldasllasclasl==================
+ void forward ()
+ {   digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+ analogWrite (enA,255);
+ analogWrite (enB,255);}
+
+  void forward2 ()
+ { digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+ analogWrite (enA,160);
+ analogWrite (enB,160);}
+
+void back (){ 
+  digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+digitalWrite (enA , HIGH);
+digitalWrite (enB , HIGH);}
+
+//=======================================================
+
+//========================================================
+ void right ()
+ { digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+analogWrite (enA,130);
+ analogWrite (enB,130);}
+
+  void right2 ()
+ { digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,HIGH);
+ digitalWrite(motorB1,HIGH);
+ digitalWrite(motorB2,LOW);
+analogWrite (enA,0);
+ analogWrite (enB,80);}
+
+void left (){ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+analogWrite (enA,130);
+ analogWrite (enB,130);}
+
+ void left2 (){ digitalWrite(motorA1,HIGH);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,HIGH);
+analogWrite (enA,80);
+ analogWrite (enB,0);}
+
+void Stop (){  digitalWrite(motorA1,LOW);
+ digitalWrite(motorA2,LOW);
+ digitalWrite(motorB1,LOW);
+ digitalWrite(motorB2,LOW);}
