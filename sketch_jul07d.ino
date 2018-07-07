@@ -1,4 +1,3 @@
-
 #include <SoftwareSerial.h>
 
 SoftwareSerial HC06(0,1);//TX,RX
